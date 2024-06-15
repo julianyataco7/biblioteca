@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model autores {
+  id_autor           Int       @id(map: "autor_pkey") @default(autoincrement())
+  nombre             String?   @db.VarChar(40)
+  apellido           String?   @db.VarChar(40)
+  nacionalidad       String?   @db.VarChar(40)
+  fecha_modificacion DateTime? @db.Date
+  libros             libros[]
+}
+
+model comprobantes {
+  id_comprobante     Int       @id @default(autoincrement())
+  id_usuario         Int
+  id_prestamo        Int
+  fecha_emision      DateTime? @db.Date
+  fecha_modificacion DateTime? @db.Date
+  usuarios           usuarios  @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "comprobantes_fk1")
+  prestamos          prestamos @relation(fields: [id_prestamo], references: [id_prestamo], onDelete: Cascade, onUpdate: NoAction, map: "comprobantes_fk2")
+}
+
+model ejemplares {
+  id_ejemplar        Int         @id @default(autoincrement())
+  id_libro           Int
+  conservacion       String?     @db.VarChar(40)
+  disponibilidad     Int?
+  fecha_modificacion DateTime?   @db.Date
+  libros             libros      @relation(fields: [id_libro], references: [id_libro], onDelete: Cascade, onUpdate: NoAction, map: "ejemplares_fk1")
+  prestamos          prestamos[]
+}
+
+model infracciones {
+  id_infraccion      Int                @id @default(autoincrement())
+  id_prestamo        Int
+  id_tipo_infraccion Int
+  multa              String?            @db.VarChar(40)
+  estado             String?            @db.VarChar(2)
+  fecha_modificacion DateTime?          @db.Date
+  prestamos          prestamos          @relation(fields: [id_prestamo], references: [id_prestamo], onDelete: Cascade, onUpdate: NoAction, map: "infracciones_fk1")
+  tipos_infracciones tipos_infracciones @relation(fields: [id_tipo_infraccion], references: [id_tipo_Infraccion], onDelete: Cascade, onUpdate: NoAction, map: "infracciones_fk2")
+}
+
+model libros {
+  id_libro           Int          @id @default(autoincrement())
+  id_autor           Int
+  nombre             String?      @db.VarChar(40)
+  categoria          String?      @db.VarChar(40)
+  editorial          String?      @db.VarChar(40)
+  estado             String?      @db.VarChar(2)
+  fecha_modificacion DateTime?    @db.Date
+  ejemplares         ejemplares[]
+  autores            autores      @relation(fields: [id_autor], references: [id_autor], onDelete: Cascade, onUpdate: NoAction, map: "libros_fk1")
+}
+
+model prestamos {
+  id_prestamo               Int            @id @default(autoincrement())
+  id_usuario                Int
+  id_ejemplar               Int
+  fecha_reserva             DateTime?      @db.Date
+  fecha_prestamo            DateTime?      @db.Date
+  fecha_estimada_devolucion DateTime?      @db.Date
+  fecha_devolucion          DateTime?      @db.Date
+  estado                    String?        @db.VarChar(2)
+  fecha_modificacion        DateTime?      @db.Date
+  comprobantes              comprobantes[]
+  infracciones              infracciones[]
+  usuarios                  usuarios       @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "prestamos_fk1")
+  ejemplares                ejemplares     @relation(fields: [id_ejemplar], references: [id_ejemplar], onDelete: Cascade, onUpdate: NoAction, map: "prestamos_fk2")
+}
+
+model roles {
+  id_rol             Int        @id @default(autoincrement())
+  descripcion        String?    @db.VarChar(40)
+  fecha_modificacion DateTime?  @db.Date
+  usuarios           usuarios[]
+}
+
+model tipos_infracciones {
+  id_tipo_Infraccion Int            @id @default(autoincrement())
+  descripcion        String?        @db.VarChar(40)
+  penalizacion_monto Decimal?       @db.Decimal(12, 2)
+  fecha_modificacion DateTime?      @db.Date
+  infracciones       infracciones[]
+}
+
+model usuarios {
+  id_usuario         Int            @id @default(autoincrement())
+  id_rol             Int
+  username           String?        @db.VarChar(40)
+  password           String?        @db.VarChar(40)
+  nombre             String?        @db.VarChar(40)
+  apellido           String?        @db.VarChar(40)
+  edad               Int?
+  direccion          String?        @db.VarChar(40)
+  distrito           String?        @db.VarChar(40)
+  estado             String?        @db.VarChar(2)
+  fecha_modificacion DateTime?      @db.Date
+  comprobantes       comprobantes[]
+  prestamos          prestamos[]
+  roles              roles          @relation(fields: [id_rol], references: [id_rol], onDelete: Cascade, onUpdate: NoAction, map: "usuarios_fk1")
+}
