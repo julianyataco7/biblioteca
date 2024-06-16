@@ -32,13 +32,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminarLibro = exports.modificarLibro = exports.obtenerLibro = exports.listarLibros = exports.insertarLibro = void 0;
-const libroService = __importStar(require("../services/libroService"));
+exports.eliminarEjemplar = exports.modificarEjemplar = exports.obtenerEjemplar = exports.listarEjemplares = exports.insertarEjemplar = void 0;
+const ejemplarService = __importStar(require("../services/ejemplarService"));
 const ResponseModel_1 = require("../models/ResponseModel");
-const insertarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('libroController::insertarLibro - Datos recibidos:', req.body);
+const insertarEjemplar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('ejemplarController::insertarEjemplar');
     try {
-        const response = yield libroService.insertarLibro(req.body);
+        const response = yield ejemplarService.insertarEjemplar(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
     catch (error) {
@@ -46,37 +46,37 @@ const insertarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json(ResponseModel_1.ResponseModel.error(error.message));
     }
 });
-exports.insertarLibro = insertarLibro;
-const listarLibros = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('libroController::listarLibros');
+exports.insertarEjemplar = insertarEjemplar;
+const listarEjemplares = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('ejemplarController::listarEjemplares');
     try {
-        const libros = yield libroService.listarLibros();
-        res.status(200).json(ResponseModel_1.ResponseModel.success(libros));
+        const ejemplares = yield ejemplarService.listarEjemplares();
+        res.status(200).json(ResponseModel_1.ResponseModel.success(ejemplares));
     }
     catch (error) {
         console.error(error.message);
         res.status(500).json(ResponseModel_1.ResponseModel.error(error.message));
     }
 });
-exports.listarLibros = listarLibros;
-const obtenerLibro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('libroController::obtenerLibro');
+exports.listarEjemplares = listarEjemplares;
+const obtenerEjemplar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('ejemplarController::obtenerEjemplar');
     try {
         const { id } = req.params;
-        const libro = yield libroService.obtenerLibro(Number(id));
-        res.status(200).json(ResponseModel_1.ResponseModel.success(libro));
+        const ejemplar = yield ejemplarService.obtenerEjemplar(Number(id));
+        res.status(200).json(ResponseModel_1.ResponseModel.success(ejemplar));
     }
     catch (error) {
         console.error(error.message);
         res.status(500).json(ResponseModel_1.ResponseModel.error(error.message));
     }
 });
-exports.obtenerLibro = obtenerLibro;
-const modificarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('libroController::modificarLibro');
+exports.obtenerEjemplar = obtenerEjemplar;
+const modificarEjemplar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('ejemplarController::modificarEjemplar');
     try {
         const { id } = req.params;
-        const response = yield libroService.modificarLibro(Number(id), req.body);
+        const response = yield ejemplarService.modificarEjemplar(Number(id), req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
     catch (error) {
@@ -84,12 +84,12 @@ const modificarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json(ResponseModel_1.ResponseModel.error(error.message));
     }
 });
-exports.modificarLibro = modificarLibro;
-const eliminarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('libroController::eliminarLibro');
+exports.modificarEjemplar = modificarEjemplar;
+const eliminarEjemplar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('ejemplarController::eliminarEjemplar');
     try {
         const { id } = req.params;
-        const response = yield libroService.eliminarLibro(Number(id));
+        const response = yield ejemplarService.eliminarEjemplar(Number(id));
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
     catch (error) {
@@ -97,5 +97,5 @@ const eliminarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json(ResponseModel_1.ResponseModel.error(error.message));
     }
 });
-exports.eliminarLibro = eliminarLibro;
-//# sourceMappingURL=libroController.js.map
+exports.eliminarEjemplar = eliminarEjemplar;
+//# sourceMappingURL=ejemplarController.js.map

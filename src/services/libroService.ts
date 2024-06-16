@@ -6,11 +6,15 @@ import { fromPrismaLibro, toPrismaLibro } from "../mappers/libroMappers";
 const prisma = new PrismaClient();
 
 export const insertarLibro = async (libro: ILibro) => {
-    await prisma.libros.create({
-        data: toPrismaLibro(libro)
-    });
-    return RESPONSE_INSERT_OK;
-}
+   
+   
+      console.log('Datos a insertar:', libro);
+      const datosPrisma = toPrismaLibro(libro);
+
+      await prisma.libros.create({data:datosPrisma});
+  
+    return 'RESPONSE_INSERT_OK';
+  };
 
 export const listarLibros = async () => {
     const libros: libros[] = await prisma.libros.findMany({

@@ -15,10 +15,10 @@ const constants_1 = require("../shared/constants");
 const libroMappers_1 = require("../mappers/libroMappers");
 const prisma = new client_1.PrismaClient();
 const insertarLibro = (libro) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma.libros.create({
-        data: (0, libroMappers_1.toPrismaLibro)(libro)
-    });
-    return constants_1.RESPONSE_INSERT_OK;
+    console.log('Datos a insertar:', libro);
+    const datosPrisma = (0, libroMappers_1.toPrismaLibro)(libro);
+    yield prisma.libros.create({ data: datosPrisma });
+    return 'RESPONSE_INSERT_OK';
 });
 exports.insertarLibro = insertarLibro;
 const listarLibros = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -64,4 +64,5 @@ const eliminarLibro = (idLibro) => __awaiter(void 0, void 0, void 0, function* (
     return constants_1.RESPONSE_DELETE_OK;
 });
 exports.eliminarLibro = eliminarLibro;
+//rrr
 //# sourceMappingURL=libroService.js.map

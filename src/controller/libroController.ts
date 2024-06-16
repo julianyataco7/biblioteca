@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
 import * as libroService from "../services/libroService";
 import { ResponseModel } from "../models/ResponseModel";
-import { ILibro } from "../models/Libro";
 
 export const insertarLibro = async (req: Request, res: Response) => {
-    console.log('libroController::insertarLibro');
+    console.log('libroController::insertarLibro - Datos recibidos:', req.body);
     try {
-        const libroData: ILibro = req.body;
-        const response = await libroService.insertarLibro(libroData);
-        res.status(200).json(ResponseModel.success(null, response));
+        
+        const response = await libroService.insertarLibro(req.body);
+        res.status(200).json(ResponseModel.success(null,response));
     } catch (error) {
         console.error(error.message);
         res.status(500).json(ResponseModel.error(error.message));
@@ -42,9 +41,8 @@ export const modificarLibro = async (req: Request, res: Response) => {
     console.log('libroController::modificarLibro');
     try {
         const { id } = req.params;
-        const libroData: ILibro = req.body;
-        const response = await libroService.modificarLibro(Number(id), libroData);
-        res.status(200).json(ResponseModel.success(null, response));
+        const response = await libroService.modificarLibro(Number(id),req.body)
+        res.status(200).json(ResponseModel.success(null,response));
     } catch (error) {
         console.error(error.message);
         res.status(500).json(ResponseModel.error(error.message));

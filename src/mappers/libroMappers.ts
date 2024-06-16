@@ -1,9 +1,9 @@
 import { libros } from "@prisma/client";
 import { ILibro } from "../models/Libro";
 
-export const fromPrismaLibro = (libro: libros): ILibro => ({
+export const fromPrismaLibro = (libro: libros): any => ({
   idLibro: libro.id_libro,
-  autor: libro.id_autor,
+  idAutor: libro.id_autor,
   nombre: libro.nombre,
   categoria: libro.categoria,
   editorial: libro.editorial,
@@ -12,7 +12,7 @@ export const fromPrismaLibro = (libro: libros): ILibro => ({
 });
 
 export const toPrismaLibro = (libro: ILibro): any => ({
-  id_autor: libro.autor,
+  id_autor: libro.idAutor,
   nombre: libro.nombre,
   categoria: libro.categoria,
   editorial: libro.editorial,
