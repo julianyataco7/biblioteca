@@ -26,7 +26,8 @@ export const listarEjemplares = async () => {
 export const obtenerEjemplar = async (idEjemplar: number) => {
     const ejemplar: ejemplares | null = await prisma.ejemplares.findUnique({
         where: {
-            id_ejemplar: idEjemplar
+            id_ejemplar: idEjemplar,
+
         }
     });
 

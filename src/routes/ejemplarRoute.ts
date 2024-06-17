@@ -10,3 +10,6 @@ router.put('/:id', modificarEjemplar);
 router.patch('/:id', eliminarEjemplar);
 
 export default router;
+
+
+

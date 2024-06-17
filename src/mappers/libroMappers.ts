@@ -8,7 +8,7 @@ export const fromPrismaLibro = (libro: libros): any => ({
   categoria: libro.categoria,
   editorial: libro.editorial,
   estado: libro.estado,
-  fechaModificacion: libro.fecha_modificacion,
+  fechaModificacion: libro.fecha_modificacion
 });
 
 export const toPrismaLibro = (libro: ILibro): any => ({
@@ -17,5 +17,5 @@ export const toPrismaLibro = (libro: ILibro): any => ({
   categoria: libro.categoria,
   editorial: libro.editorial,
   estado: libro.estado,
-  fecha_modificacion: libro.fechaModificacion,
+  fecha_modificacion: libro.fechaModificacion
 });

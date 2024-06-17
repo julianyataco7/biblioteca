@@ -28,7 +28,8 @@ export const listarLibros = async () => {
 export const obtenerLibro = async (idLibro: number) => {
     const libro: libros | null = await prisma.libros.findUnique({
         where: {
-            id_libro: idLibro
+            id_libro: idLibro,
+            estado: '1'
         }
     });
 
