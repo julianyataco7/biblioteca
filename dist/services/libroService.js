@@ -23,23 +23,30 @@ const insertarLibro = (libro) => __awaiter(void 0, void 0, void 0, function* () 
 exports.insertarLibro = insertarLibro;
 const listarLibros = () => __awaiter(void 0, void 0, void 0, function* () {
     const libros = yield prisma.libros.findMany({
+        include: {
+            autores: true
+        },
         where: {
             estado: '1'
         }
     });
-    return libros.map((libro) => (0, libroMappers_1.fromPrismaLibro)(libro));
+    return libros.map((libro) => (0, libroMappers_1.fromPrismaLibro)(libro, libro.autores));
 });
 exports.listarLibros = listarLibros;
 const obtenerLibro = (idLibro) => __awaiter(void 0, void 0, void 0, function* () {
     const libro = yield prisma.libros.findUnique({
+        include: {
+            autores: true
+        },
         where: {
-            id_libro: idLibro
+            id_libro: idLibro,
+            estado: '1'
         }
     });
     if (!libro) {
         throw new Error(`Libro con id ${idLibro} no encontrado`);
     }
-    return (0, libroMappers_1.fromPrismaLibro)(libro);
+    return (0, libroMappers_1.fromPrismaLibro)(libro, libro.autores);
 });
 exports.obtenerLibro = obtenerLibro;
 const modificarLibro = (idLibro, libro) => __awaiter(void 0, void 0, void 0, function* () {

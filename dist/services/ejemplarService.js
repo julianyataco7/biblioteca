@@ -33,7 +33,7 @@ exports.listarEjemplares = listarEjemplares;
 const obtenerEjemplar = (idEjemplar) => __awaiter(void 0, void 0, void 0, function* () {
     const ejemplar = yield prisma.ejemplares.findUnique({
         where: {
-            id_ejemplar: idEjemplar
+            id_ejemplar: idEjemplar,
         }
     });
     if (!ejemplar) {

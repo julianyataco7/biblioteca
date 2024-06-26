@@ -29,6 +29,7 @@ export const obtenerAutor = async (idAutor: number) => {
         where: {
             id_autor: idAutor,
             estado: '1'
+    
         }
     });
 

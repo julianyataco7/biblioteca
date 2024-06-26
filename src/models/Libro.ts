@@ -1,5 +1,6 @@
+import { IAutor } from "./Autor";
 export interface ILibro {
-  idAutor: number;
+  Autor: IAutor;
   nombre: string;
   categoria: string;
   editorial: string;

@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toPrismaLibro = exports.fromPrismaLibro = void 0;
-const fromPrismaLibro = (libro) => ({
+const autorMappers_1 = require("../mappers/autorMappers");
+const fromPrismaLibro = (libro, autores) => ({
     idLibro: libro.id_libro,
-    idAutor: libro.id_autor,
+    Autor: (0, autorMappers_1.fromPrismaAutor)(autores),
     nombre: libro.nombre,
     categoria: libro.categoria,
     editorial: libro.editorial,
@@ -12,7 +13,7 @@ const fromPrismaLibro = (libro) => ({
 });
 exports.fromPrismaLibro = fromPrismaLibro;
 const toPrismaLibro = (libro) => ({
-    id_autor: libro.idAutor,
+    id_autor: libro.Autor.idAutor,
     nombre: libro.nombre,
     categoria: libro.categoria,
     editorial: libro.editorial,

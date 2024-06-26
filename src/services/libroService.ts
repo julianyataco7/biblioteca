@@ -18,15 +18,21 @@ export const insertarLibro = async (libro: ILibro) => {
 
 export const listarLibros = async () => {
     const libros: libros[] = await prisma.libros.findMany({
+        include:{
+            autores:true
+        },
         where: {
             estado: '1'
         }
     });
-    return libros.map((libro: libros) => fromPrismaLibro(libro));
+    return libros.map((libro: any) => fromPrismaLibro(libro,libro.autores));
 }
 
 export const obtenerLibro = async (idLibro: number) => {
-    const libro: libros | null = await prisma.libros.findUnique({
+    const libro: any | null = await prisma.libros.findUnique({
+        include: {
+            autores:true
+        },
         where: {
             id_libro: idLibro,
             estado: '1'
@@ -37,7 +43,7 @@ export const obtenerLibro = async (idLibro: number) => {
         throw new Error(`Libro con id ${idLibro} no encontrado`);
     }
 
-    return fromPrismaLibro(libro);
+    return fromPrismaLibro(libro,libro.autores);
 }
 
 export const modificarLibro = async (idLibro: number, libro: ILibro) => {
