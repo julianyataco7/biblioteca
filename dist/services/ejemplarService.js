@@ -23,15 +23,21 @@ const insertarEjemplar = (ejemplar) => __awaiter(void 0, void 0, void 0, functio
 exports.insertarEjemplar = insertarEjemplar;
 const listarEjemplares = () => __awaiter(void 0, void 0, void 0, function* () {
     const ejemplares = yield prisma.ejemplares.findMany({
+        include: {
+            libros: { include: { autores: true } }
+        },
         where: {
             disponibilidad: 1
         }
     });
-    return ejemplares.map((ejemplar) => (0, ejemplarMappers_1.fromPrismaEjemplar)(ejemplar));
+    return ejemplares.map((ejemplar) => (0, ejemplarMappers_1.fromPrismaEjemplar)(ejemplar, ejemplar.libros, ejemplar.libros.autores));
 });
 exports.listarEjemplares = listarEjemplares;
 const obtenerEjemplar = (idEjemplar) => __awaiter(void 0, void 0, void 0, function* () {
     const ejemplar = yield prisma.ejemplares.findUnique({
+        include: {
+            libros: { include: { autores: true } }
+        },
         where: {
             id_ejemplar: idEjemplar,
         }
@@ -39,7 +45,7 @@ const obtenerEjemplar = (idEjemplar) => __awaiter(void 0, void 0, void 0, functi
     if (!ejemplar) {
         throw new Error(`Ejemplar con id ${idEjemplar} no encontrado`);
     }
-    return (0, ejemplarMappers_1.fromPrismaEjemplar)(ejemplar);
+    return (0, ejemplarMappers_1.fromPrismaEjemplar)(ejemplar, ejemplar.libros, ejemplar.libros.autores);
 });
 exports.obtenerEjemplar = obtenerEjemplar;
 const modificarEjemplar = (idEjemplar, ejemplar) => __awaiter(void 0, void 0, void 0, function* () {

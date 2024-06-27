@@ -1,7 +1,8 @@
-import { PrismaClient, ejemplares } from "@prisma/client";
+import { PrismaClient, ejemplares,libros } from "@prisma/client";
 import { IEjemplar } from "../models/Ejemplar";
 import { RESPONSE_DELETE_OK, RESPONSE_INSERT_OK, RESPONSE_UPDATE_OK } from "../shared/constants";
 import { fromPrismaEjemplar, toPrismaEjemplar } from "../mappers/ejemplarMappers";
+
 
 const prisma = new PrismaClient();
 
@@ -16,15 +17,23 @@ export const insertarEjemplar = async (ejemplar: IEjemplar) => {
 
 export const listarEjemplares = async () => {
     const ejemplares: ejemplares[] = await prisma.ejemplares.findMany({
+        include:{
+            libros:{include:{autores:true}}
+        
+        },
         where: {
             disponibilidad: 1
         }
     });
-    return ejemplares.map((ejemplar: ejemplares) => fromPrismaEjemplar(ejemplar));
+    return ejemplares.map((ejemplar: any) => fromPrismaEjemplar(ejemplar,ejemplar.libros,ejemplar.libros.autores));
 }
 
 export const obtenerEjemplar = async (idEjemplar: number) => {
-    const ejemplar: ejemplares | null = await prisma.ejemplares.findUnique({
+    const ejemplar: any | null = await prisma.ejemplares.findUnique({
+        include:{
+            libros:{include:{autores:true}}
+        
+        },
         where: {
             id_ejemplar: idEjemplar,
 
@@ -35,7 +44,7 @@ export const obtenerEjemplar = async (idEjemplar: number) => {
         throw new Error(`Ejemplar con id ${idEjemplar} no encontrado`);
     }
 
-    return fromPrismaEjemplar(ejemplar);
+    return fromPrismaEjemplar(ejemplar,ejemplar.libros,ejemplar.libros.autores);
 }
 
 export const modificarEjemplar = async (idEjemplar: number, ejemplar: IEjemplar) => {
