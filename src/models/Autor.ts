@@ -6,3 +6,4 @@ export interface IAutor {
     estado?: string;
     fechaModificacion?: Date;
   }
+
