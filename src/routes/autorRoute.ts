@@ -95,6 +95,50 @@ router.get('/:id', obtenerAutor);
  *         description: Error en el servidor
  */
 router.put('/:id', modificarAutor);
+/**
+ * @swagger
+ * /api/v1/autores/{id}:
+ *   put:
+ *     summary: Modifiar un autor
+ *     tags: [Autores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: id del autor que desea obtener
+ *     requestBody:
+ *       description: Esquema de Autor
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/autorModel'
+ *     responses:
+ *       200:
+ *         description: Autor modificado con éxito
+ *       500:
+ *         description: Error en el servidor
+ */
+
 router.patch('/:id', eliminarAutor);
+/**
+ * @swagger
+ * /api/v1/autores/{id}:
+ *   patch:
+ *     summary: Eliminar un autor (forma logica)
+ *     tags: [Autores]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: id del autor que desea eliminar
+ *         schema:
+ *           type: number
+ *     responses:
+ *       200:
+ *         description: Autor eliminado con éxito
+ *       500:
+ *         description: Error en el servidor
+ */
 
 export default router;
