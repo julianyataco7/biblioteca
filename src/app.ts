@@ -5,6 +5,7 @@ import libroRoute from './routes/libroRoute';
 import ejemplarRoute from './routes/ejemplarRoute'
 import autorRoute from './routes/autorRoute'
 import usuarioRoute from './routes/usuarioRoute'
+import prestamoRoute from './routes/prestamoRoute'
 
 
 const app: Application = express();
@@ -19,9 +20,10 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec));
 
 // Rutas
 app.use('/api/v1/libros', libroRoute);
-app.use('/api/v1/ejemplares',ejemplarRoute)
-app.use('/api/v1/autores',autorRoute)
-app.use('/api/v1/usuarios',usuarioRoute)
+app.use('/api/v1/ejemplares',ejemplarRoute);
+app.use('/api/v1/autores',autorRoute);
+app.use('/api/v1/usuarios',usuarioRoute);
+app.use('/api/v1/prestamos',prestamoRoute);
 
 
 
