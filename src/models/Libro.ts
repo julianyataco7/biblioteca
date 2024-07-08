@@ -6,6 +6,7 @@ export interface ILibro {
   categoria: string;
   editorial: string;
   estado: string;
+  fechaCreacion: Date;
   fechaModificacion: Date;
 
   }

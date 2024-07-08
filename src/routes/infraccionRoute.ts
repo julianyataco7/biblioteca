@@ -21,6 +21,10 @@ const router = express.Router();
  *         idInfraccion:
  *           type: integer
  *           description: Identificador único de la infracción
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación del registro de la infracción
  *         prestamo:
  *           $ref: '#/components/schemas/prestamoModel'
  *           description: Información del préstamo asociado a la infracción
@@ -38,6 +42,7 @@ const router = express.Router();
  *           format: date-time
  *           description: Fecha de la última modificación del registro de la infracción
  */
+
 
 router.post('/', insertarInfraccion);
 /**

@@ -5,15 +5,16 @@ import { fromPrismaUsuario } from "./usuarioMappers";
 
 export const fromPrismaComprobante = (comprobante: comprobantes, usuario: usuarios, prestamo: prestamos,ejemplar: ejemplares,libro: libros,autor: autores): any=> ({
     idComprobante: comprobante.id_comprobante,
+    numeroComprobante: comprobante.numero_comprobante,
     usuario: fromPrismaUsuario(usuario),
     prestamo: fromPrismaPrestamo(prestamo,ejemplar,usuario,libro,autor),
-    fechaEmision: comprobante.fecha_emision,
+    fechaCreacion: comprobante.fecha_creacion,
     fechaModificacion: comprobante.fecha_modificacion,
 });
 
 export const toPrismaComprobante = (comprobante: IComprobante): any => ({
     id_usuario: comprobante.usuario.idUsuario,
     id_prestamo: comprobante.prestamo.idPrestamo,
-    fecha_emision: comprobante.fechaEmision,
+    fecha_creacion: comprobante.fechaCreacion,
     fecha_modificacion: comprobante.fechaModificacion,
 });

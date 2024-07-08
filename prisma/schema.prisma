@@ -11,8 +11,9 @@ model comprobantes {
   id_comprobante     Int       @id @default(autoincrement())
   id_usuario         Int
   id_prestamo        Int
-  fecha_emision      DateTime? @db.Date
+  fecha_creacion     DateTime? @db.Date
   fecha_modificacion DateTime? @db.Date
+  numero_comprobante Int       @default(autoincrement())
   usuarios           usuarios  @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "comprobantes_fk1")
   prestamos          prestamos @relation(fields: [id_prestamo], references: [id_prestamo], onDelete: Cascade, onUpdate: NoAction, map: "comprobantes_fk2")
 }
@@ -24,6 +25,7 @@ model ejemplares {
   disponibilidad     Int?
   fecha_modificacion DateTime?   @db.Date
   estado             String?     @db.VarChar(2)
+  fecha_creacion     DateTime?   @db.Date
   libros             libros      @relation(fields: [id_libro], references: [id_libro], onDelete: Cascade, onUpdate: NoAction, map: "ejemplares_fk1")
   prestamos          prestamos[]
 }
@@ -35,6 +37,7 @@ model infracciones {
   multa              String?            @db.VarChar(40)
   estado             String?            @db.VarChar(2)
   fecha_modificacion DateTime?          @db.Date
+  fecha_creacion     DateTime?          @db.Date
   prestamos          prestamos          @relation(fields: [id_prestamo], references: [id_prestamo], onDelete: Cascade, onUpdate: NoAction, map: "infracciones_fk1")
   tipos_infracciones tipos_infracciones @relation(fields: [id_tipo_infraccion], references: [id_tipo_Infraccion], onDelete: Cascade, onUpdate: NoAction, map: "infracciones_fk2")
 }
@@ -47,6 +50,7 @@ model libros {
   editorial          String?      @db.VarChar(40)
   estado             String?      @db.VarChar(2)
   fecha_modificacion DateTime?    @db.Date
+  fecha_creacion     DateTime?    @db.Date
   ejemplares         ejemplares[]
   autores            autores      @relation(fields: [id_autor], references: [id_autor], onDelete: Cascade, onUpdate: NoAction, map: "libros_fk1")
 }
@@ -71,6 +75,7 @@ model roles {
   id_rol             Int        @id @default(autoincrement())
   descripcion        String?    @db.VarChar(40)
   fecha_modificacion DateTime?  @db.Date
+  estaado            String?    @db.VarChar(2)
   usuarios           usuarios[]
 }
 
@@ -79,16 +84,19 @@ model tipos_infracciones {
   descripcion        String?        @db.VarChar(40)
   penalizacion_monto Decimal?       @db.Decimal(12, 2)
   fecha_modificacion DateTime?      @db.Date
+  fecha_creacion     DateTime?      @db.Date
   infracciones       infracciones[]
 }
 
 model autores {
   id_autor           Int       @id(map: "autor_pkey") @default(autoincrement())
   nombre             String?   @db.VarChar(40)
-  apellido           String?   @db.VarChar(40)
+  apellido_paterno   String?   @db.VarChar(40)
   nacionalidad       String?   @db.VarChar(40)
   fecha_modificacion DateTime? @db.Date
   estado             String?   @db.VarChar(2)
+  apellido_materno   String?   @db.VarChar(40)
+  fecha_creacion     DateTime? @db.Date
   libros             libros[]
 }
 
@@ -98,12 +106,14 @@ model usuarios {
   username           String?        @db.VarChar(40)
   password           String?        @db.VarChar(40)
   nombre             String?        @db.VarChar(40)
-  apellido           String?        @db.VarChar(40)
+  apellido_paterno   String?        @db.VarChar(40)
   edad               Int?
   direccion          String?        @db.VarChar(40)
   distrito           String?        @db.VarChar(40)
   estado             String?        @db.VarChar(2)
   fecha_modificacion DateTime?      @db.Date
+  apellido_materno   String?        @db.VarChar(40)
+  fecha_creacion     DateTime?      @db.Date
   comprobantes       comprobantes[]
   prestamos          prestamos[]
   roles              roles          @relation(fields: [id_rol], references: [id_rol], onDelete: Cascade, onUpdate: NoAction, map: "usuarios_fk1")

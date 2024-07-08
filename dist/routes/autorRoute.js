@@ -20,12 +20,22 @@ const router = express_1.default.Router();
  *     autorModel:
  *       type: object
  *       properties:
+ *         idAutor:
+ *           type: number
+ *           description: id del autor
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: La fecha de creacion del autor
  *         nombre:
  *           type: string
  *           description: El nombre del autor
- *         apellido:
+ *         apellidoPaterno:
  *           type: string
- *           description: El apellido del autor
+ *           description: El apellido paterno del autor
+ *         apellidoMaterno:
+ *           type: string
+ *           description: El apellido materno del autor
  *         nacionalidad:
  *           type: string
  *           description: La nacionalidad del autor

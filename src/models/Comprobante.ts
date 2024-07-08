@@ -3,8 +3,9 @@ import { IUsuario } from "./Usuario";
 
 export interface IComprobante {
     idComprobante: number;
+    numeroComprobante: number;
     usuario: IUsuario;
     prestamo: IPrestamo;
-    fechaEmision?: Date;
+    fechaCreacion?: Date;
     fechaModificacion?: Date;
 }

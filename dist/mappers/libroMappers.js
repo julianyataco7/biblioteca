@@ -9,6 +9,7 @@ const fromPrismaLibro = (libro, autores) => ({
     categoria: libro.categoria,
     editorial: libro.editorial,
     estado: libro.estado,
+    fechaCreacion: libro.fecha_creacion,
     fechaModificacion: libro.fecha_modificacion
 });
 exports.fromPrismaLibro = fromPrismaLibro;
@@ -18,6 +19,7 @@ const toPrismaLibro = (libro) => ({
     categoria: libro.categoria,
     editorial: libro.editorial,
     estado: libro.estado,
+    fecha_creacion: libro.fechaCreacion,
     fecha_modificacion: libro.fechaModificacion
 });
 exports.toPrismaLibro = toPrismaLibro;

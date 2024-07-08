@@ -21,6 +21,10 @@ const router = express.Router();
  *         idEjemplar:
  *           type: integer
  *           description: Identificador único del ejemplar
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación del registro del ejemplar
  *         libro:
  *           $ref: '#/components/schemas/libroModel'
  *           description: Información del libro al que pertenece el ejemplar
@@ -35,6 +39,7 @@ const router = express.Router();
  *           format: date-time
  *           description: Fecha de la última modificación del registro del ejemplar
  */
+
 
 router.post('/', insertarEjemplar);
 /**

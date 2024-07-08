@@ -4,6 +4,7 @@ import { fromPrismaLibro } from "./libroMappers";
 
 export const fromPrismaEjemplar = (ejemplar: ejemplares,libro: libros,autor: autores): IEjemplar => ({
   idEjemplar: ejemplar.id_ejemplar,
+  fechaCreacion:ejemplar.fecha_creacion,
   libro: fromPrismaLibro(libro,autor),
   conservacion: ejemplar.conservacion,
   disponibilidad: ejemplar.disponibilidad,
@@ -15,4 +16,5 @@ export const toPrismaEjemplar = (ejemplar: IEjemplar): any => ({
   conservacion: ejemplar.conservacion,
   disponibilidad: ejemplar.disponibilidad,
   fecha_modificacion: ejemplar.fechaModificacion,
+  fecha_creacion: ejemplar.fechaCreacion
 });

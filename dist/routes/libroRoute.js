@@ -38,6 +38,10 @@ const router = express_1.default.Router();
  *         estado:
  *           type: string
  *           description: Estado actual del libro (e.g., Disponible, Prestado)
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación del registro del libro
  *         fechaModificacion:
  *           type: string
  *           format: date-time

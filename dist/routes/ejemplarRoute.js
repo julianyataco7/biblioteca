@@ -23,6 +23,10 @@ const router = express_1.default.Router();
  *         idEjemplar:
  *           type: integer
  *           description: Identificador único del ejemplar
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación del registro del ejemplar
  *         libro:
  *           $ref: '#/components/schemas/libroModel'
  *           description: Información del libro al que pertenece el ejemplar

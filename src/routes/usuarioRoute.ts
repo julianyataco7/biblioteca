@@ -24,6 +24,10 @@ const router = express.Router();
  *         idRol:
  *           type: integer
  *           description: Identificador del rol del usuario
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de la creacion registro del usuario
  *         username:
  *           type: string
  *           description: Nombre de usuario
@@ -33,9 +37,12 @@ const router = express.Router();
  *         nombre:
  *           type: string
  *           description: Nombre del usuario
- *         apellido:
+ *         apellidoPaterno:
  *           type: string
- *           description: Apellido del usuario
+ *           description: Apellido paterno del usuario
+ *         apellidoMaterno:
+ *           type: string
+ *           description: Apellido materno del usuario
  *         edad:
  *           type: integer
  *           description: Edad del usuario
@@ -52,6 +59,7 @@ const router = express.Router();
  *           type: string
  *           format: date-time
  *           description: Fecha de la última modificación del registro del usuario
+ *         
  */
 
 // Ruta para insertar usuario

@@ -6,6 +6,7 @@ export const fromPrismaTipoInfraccion = (tipoInfraccion: tipos_infracciones): an
   idTipoInfraccion: tipoInfraccion.id_tipo_Infraccion,
   descripcion: tipoInfraccion.descripcion,
   penalizacionMonto: tipoInfraccion.penalizacion_monto?.toNumber(),
+  fechaCreacion: tipoInfraccion.fecha_creacion,
   fechaModificacion: tipoInfraccion.fecha_modificacion,
 });
 
@@ -13,5 +14,6 @@ export const toPrismaTipoInfraccion = (tipoInfraccion: ITipoInfraccion): any => 
   id_tipo_Infraccion: tipoInfraccion.idTipoInfraccion,
   descripcion: tipoInfraccion.descripcion,
   penalizacion_monto: tipoInfraccion.penalizacionMonto ? new Prisma.Decimal(tipoInfraccion.penalizacionMonto) : undefined,
+  fecha_creacion: tipoInfraccion.fechaCreacion,
   fecha_modificacion: tipoInfraccion.fechaModificacion,
 });

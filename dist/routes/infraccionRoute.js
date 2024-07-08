@@ -23,6 +23,10 @@ const router = express_1.default.Router();
  *         idInfraccion:
  *           type: integer
  *           description: Identificador único de la infracción
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación del registro de la infracción
  *         prestamo:
  *           $ref: '#/components/schemas/prestamoModel'
  *           description: Información del préstamo asociado a la infracción

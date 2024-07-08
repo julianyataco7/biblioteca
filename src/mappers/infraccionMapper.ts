@@ -5,6 +5,7 @@ import { fromPrismaTipoInfraccion } from "./tipoInfraccionMappers";
 
 export const fromPrismaInfraccion = (infraccion:infracciones,prestamo: prestamos,ejemplar: ejemplares,usuario: usuarios,libro: libros,autor: autores,tipoInfraccion:tipos_infracciones): any => ({
   idInfraccion: infraccion.id_infraccion,
+  fechaCreacion: infraccion.fecha_creacion,
   prestamo: fromPrismaPrestamo(prestamo,ejemplar,usuario,libro,autor,),
   tipoInfraccion: fromPrismaTipoInfraccion(tipoInfraccion),
   multa: infraccion.multa,
@@ -18,4 +19,5 @@ export const toPrismaInfraccion = (infraccion: IInfraccion): any => ({
   multa: infraccion.multa,
   estado: infraccion.estado,
   fecha_modificacion: infraccion.fechaModificacion,
+  fecha_creacion: infraccion.fechaCreacion
 });

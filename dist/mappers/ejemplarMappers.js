@@ -4,6 +4,7 @@ exports.toPrismaEjemplar = exports.fromPrismaEjemplar = void 0;
 const libroMappers_1 = require("./libroMappers");
 const fromPrismaEjemplar = (ejemplar, libro, autor) => ({
     idEjemplar: ejemplar.id_ejemplar,
+    fechaCreacion: ejemplar.fecha_creacion,
     libro: (0, libroMappers_1.fromPrismaLibro)(libro, autor),
     conservacion: ejemplar.conservacion,
     disponibilidad: ejemplar.disponibilidad,
@@ -15,6 +16,7 @@ const toPrismaEjemplar = (ejemplar) => ({
     conservacion: ejemplar.conservacion,
     disponibilidad: ejemplar.disponibilidad,
     fecha_modificacion: ejemplar.fechaModificacion,
+    fecha_creacion: ejemplar.fechaCreacion
 });
 exports.toPrismaEjemplar = toPrismaEjemplar;
 //# sourceMappingURL=ejemplarMappers.js.map

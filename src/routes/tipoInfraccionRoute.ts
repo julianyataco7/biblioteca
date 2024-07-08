@@ -27,11 +27,16 @@ const router = express.Router();
  *         penalizacionMonto:
  *           type: number
  *           description: Monto de la penalización del tipo de infracción
+ *         fechaCreacion:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de la creacion del registro del tipo de infracción
  *         fechaModificacion:
  *           type: string
  *           format: date-time
  *           description: Fecha de la última modificación del registro del tipo de infracción
  */
+
 
 // Ruta para insertar tipoInfraccion
 router.post('/', insertarTipoInfraccion);

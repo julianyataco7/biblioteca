@@ -23,13 +23,16 @@ const router = express_1.default.Router();
  *         idComprobante:
  *           type: integer
  *           description: Identificador único del comprobante
+ *         numeroComprobante:
+ *           type: integer
+ *           description: Número único del comprobante
  *         usuario:
  *           $ref: '#/components/schemas/usuarioModel'
  *           description: Información del usuario asociado al comprobante
  *         prestamo:
  *           $ref: '#/components/schemas/prestamoModel'
  *           description: Información del préstamo asociado al comprobante
- *         fechaEmision:
+ *         fechaCreacion:
  *           type: string
  *           format: date-time
  *           description: Fecha de emisión del comprobante

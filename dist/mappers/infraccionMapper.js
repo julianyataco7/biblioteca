@@ -5,6 +5,7 @@ const prestamoMappers_1 = require("./prestamoMappers");
 const tipoInfraccionMappers_1 = require("./tipoInfraccionMappers");
 const fromPrismaInfraccion = (infraccion, prestamo, ejemplar, usuario, libro, autor, tipoInfraccion) => ({
     idInfraccion: infraccion.id_infraccion,
+    fechaCreacion: infraccion.fecha_creacion,
     prestamo: (0, prestamoMappers_1.fromPrismaPrestamo)(prestamo, ejemplar, usuario, libro, autor),
     tipoInfraccion: (0, tipoInfraccionMappers_1.fromPrismaTipoInfraccion)(tipoInfraccion),
     multa: infraccion.multa,
@@ -18,6 +19,7 @@ const toPrismaInfraccion = (infraccion) => ({
     multa: infraccion.multa,
     estado: infraccion.estado,
     fecha_modificacion: infraccion.fechaModificacion,
+    fecha_creacion: infraccion.fechaCreacion
 });
 exports.toPrismaInfraccion = toPrismaInfraccion;
 //# sourceMappingURL=infraccionMapper.js.map
