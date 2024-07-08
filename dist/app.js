@@ -11,6 +11,9 @@ const ejemplarRoute_1 = __importDefault(require("./routes/ejemplarRoute"));
 const autorRoute_1 = __importDefault(require("./routes/autorRoute"));
 const usuarioRoute_1 = __importDefault(require("./routes/usuarioRoute"));
 const prestamoRoute_1 = __importDefault(require("./routes/prestamoRoute"));
+const tipoInfraccionRoute_1 = __importDefault(require("./routes/tipoInfraccionRoute"));
+const infraccionRoute_1 = __importDefault(require("./routes/infraccionRoute"));
+const comprobanteRoute_1 = __importDefault(require("./routes/comprobanteRoute"));
 const app = (0, express_1.default)();
 // Middleware para analizar JSON en las solicitudes POST y PUT
 app.use(express_1.default.json());
@@ -22,5 +25,8 @@ app.use('/api/v1/ejemplares', ejemplarRoute_1.default);
 app.use('/api/v1/autores', autorRoute_1.default);
 app.use('/api/v1/usuarios', usuarioRoute_1.default);
 app.use('/api/v1/prestamos', prestamoRoute_1.default);
+app.use('/api/v1/tipoInfracciones', tipoInfraccionRoute_1.default);
+app.use('/api/v1/infracciones', infraccionRoute_1.default);
+app.use('/api/v1/comprobantes', comprobanteRoute_1.default);
 exports.default = app;
 //# sourceMappingURL=app.js.map

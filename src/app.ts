@@ -6,6 +6,9 @@ import ejemplarRoute from './routes/ejemplarRoute'
 import autorRoute from './routes/autorRoute'
 import usuarioRoute from './routes/usuarioRoute'
 import prestamoRoute from './routes/prestamoRoute'
+import tipoInfraccionRoute from './routes/tipoInfraccionRoute'
+import infraccionRoute from './routes/infraccionRoute'
+import comprobanteRoute from './routes/comprobanteRoute'
 
 
 const app: Application = express();
@@ -24,6 +27,9 @@ app.use('/api/v1/ejemplares',ejemplarRoute);
 app.use('/api/v1/autores',autorRoute);
 app.use('/api/v1/usuarios',usuarioRoute);
 app.use('/api/v1/prestamos',prestamoRoute);
+app.use('/api/v1/tipoInfracciones',tipoInfraccionRoute);
+app.use('/api/v1/infracciones',infraccionRoute);
+app.use('/api/v1/comprobantes',comprobanteRoute);
 
 
 
