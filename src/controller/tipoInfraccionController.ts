@@ -1,10 +1,19 @@
 import { Request, Response } from "express";
 import * as tipoInfraccionService from "../services/tipoInfraccionService";
 import { ResponseModel } from "../models/ResponseModel";
+import { insertarTipoInfraccionSchema,modificarTipoInfraccionSchema } from "../schema/tipoInfraccionSchema";
 
 export const insertarTipoInfraccion = async (req: Request, res: Response) => {
     console.log('tipoInfraccionController::insertarTipoInfraccion');
     try {
+        
+        const { error } = insertarTipoInfraccionSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
+
         const response = await tipoInfraccionService.insertarTipoInfraccion(req.body);
         res.status(200).json(ResponseModel.success(null, response));
     } catch (error) {
@@ -28,6 +37,14 @@ export const obtenerTipoInfraccion = async (req: Request, res: Response) => {
     console.log('tipoInfraccionController::obtenerTipoInfraccion');
     try {
         const { id } = req.params;
+
+        const { error } = modificarTipoInfraccionSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
+
         const tipoInfraccion = await tipoInfraccionService.obtenerTipoInfraccion(Number(id));
         res.status(200).json(ResponseModel.success(tipoInfraccion));
     } catch (error) {

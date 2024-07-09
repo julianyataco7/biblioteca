@@ -1,11 +1,19 @@
 import { Request, Response } from "express";
 import * as libroService from "../services/libroService";
 import { ResponseModel } from "../models/ResponseModel";
+import { insertarLibroSchema,modificarLibroSchema } from "../schema/libroSchema";
 
 export const insertarLibro = async (req: Request, res: Response) => {
     console.log('libroController::insertarLibro - Datos recibidos:', req.body);
     try {
         
+        const { error } = insertarLibroSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
+
         const response = await libroService.insertarLibro(req.body);
         res.status(200).json(ResponseModel.success(null,response));
     } catch (error) {
@@ -41,6 +49,14 @@ export const modificarLibro = async (req: Request, res: Response) => {
     console.log('libroController::modificarLibro');
     try {
         const { id } = req.params;
+
+        const { error } = modificarLibroSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
+
         const response = await libroService.modificarLibro(Number(id),req.body)
         res.status(200).json(ResponseModel.success(null,response));
     } catch (error) {

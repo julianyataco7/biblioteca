@@ -35,9 +35,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarAutor = exports.modificarAutor = exports.obtenerAutor = exports.listarAutores = exports.insertarAutor = void 0;
 const autorService = __importStar(require("../services/autorService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const AutorSchema_1 = require("../schema/AutorSchema");
 const insertarAutor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('autorController::insertarAutor');
     try {
+        const { error } = AutorSchema_1.insertarAutorSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield autorService.insertarAutor(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -76,6 +83,12 @@ const modificarAutor = (req, res) => __awaiter(void 0, void 0, void 0, function*
     console.log('autorController::modificarAutor');
     try {
         const { id } = req.params;
+        const { error } = AutorSchema_1.modificarAutorSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield autorService.modificarAutor(Number(id), req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }

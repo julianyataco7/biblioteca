@@ -35,9 +35,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarComprobante = exports.modificarComprobante = exports.obtenerComprobante = exports.listarComprobantes = exports.insertarComprobante = void 0;
 const comprobanteService = __importStar(require("../services/comprobanteService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const comprobanteSchema_1 = require("../schema/comprobanteSchema");
 const insertarComprobante = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('comprobanteController::insertarComprobante');
     try {
+        const { error } = comprobanteSchema_1.insertarComprobanteSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield comprobanteService.insertarComprobante(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -76,6 +83,12 @@ const modificarComprobante = (req, res) => __awaiter(void 0, void 0, void 0, fun
     console.log('comprobanteController::modificarComprobante');
     try {
         const { id } = req.params;
+        const { error } = comprobanteSchema_1.modificarComprobanteSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield comprobanteService.modificarComprobante(Number(id), req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }

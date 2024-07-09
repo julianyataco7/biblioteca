@@ -35,9 +35,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarEjemplar = exports.modificarEjemplar = exports.obtenerEjemplar = exports.listarEjemplares = exports.insertarEjemplar = void 0;
 const ejemplarService = __importStar(require("../services/ejemplarService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const ejemplarSchema_1 = require("../schema/ejemplarSchema");
 const insertarEjemplar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('ejemplarController::insertarEjemplar');
     try {
+        const { error } = ejemplarSchema_1.insertarEjemplarSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield ejemplarService.insertarEjemplar(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -76,6 +83,12 @@ const modificarEjemplar = (req, res) => __awaiter(void 0, void 0, void 0, functi
     console.log('ejemplarController::modificarEjemplar');
     try {
         const { id } = req.params;
+        const { error } = ejemplarSchema_1.modificarEjemplarSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield ejemplarService.modificarEjemplar(Number(id), req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }

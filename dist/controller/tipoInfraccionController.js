@@ -35,9 +35,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarTipoInfraccion = exports.modificarTipoInfraccion = exports.obtenerTipoInfraccion = exports.listarTiposInfraccion = exports.insertarTipoInfraccion = void 0;
 const tipoInfraccionService = __importStar(require("../services/tipoInfraccionService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const tipoInfraccionSchema_1 = require("../schema/tipoInfraccionSchema");
 const insertarTipoInfraccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('tipoInfraccionController::insertarTipoInfraccion');
     try {
+        const { error } = tipoInfraccionSchema_1.insertarTipoInfraccionSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield tipoInfraccionService.insertarTipoInfraccion(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -63,6 +70,12 @@ const obtenerTipoInfraccion = (req, res) => __awaiter(void 0, void 0, void 0, fu
     console.log('tipoInfraccionController::obtenerTipoInfraccion');
     try {
         const { id } = req.params;
+        const { error } = tipoInfraccionSchema_1.modificarTipoInfraccionSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const tipoInfraccion = yield tipoInfraccionService.obtenerTipoInfraccion(Number(id));
         res.status(200).json(ResponseModel_1.ResponseModel.success(tipoInfraccion));
     }

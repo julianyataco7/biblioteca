@@ -35,9 +35,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarUsuario = exports.modificarUsuario = exports.obtenerUsuario = exports.listarUsuarios = exports.insertarUsuario = void 0;
 const usuarioService = __importStar(require("../services/usuarioService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const usuarioSchema_1 = require("../schema/usuarioSchema");
 const insertarUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('usuarioController::insertarUsuario');
     try {
+        const { error } = usuarioSchema_1.insertarUsuarioSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield usuarioService.insertarUsuario(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -76,6 +83,12 @@ const modificarUsuario = (req, res) => __awaiter(void 0, void 0, void 0, functio
     console.log('usuarioController::modificarUsuario');
     try {
         const { id } = req.params;
+        const { error } = usuarioSchema_1.modificarUsuarioSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield usuarioService.modificarUsuario(Number(id), req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }

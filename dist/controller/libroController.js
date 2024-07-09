@@ -35,9 +35,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarLibro = exports.modificarLibro = exports.obtenerLibro = exports.listarLibros = exports.insertarLibro = void 0;
 const libroService = __importStar(require("../services/libroService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const libroSchema_1 = require("../schema/libroSchema");
 const insertarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('libroController::insertarLibro - Datos recibidos:', req.body);
     try {
+        const { error } = libroSchema_1.insertarLibroSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield libroService.insertarLibro(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -76,6 +83,12 @@ const modificarLibro = (req, res) => __awaiter(void 0, void 0, void 0, function*
     console.log('libroController::modificarLibro');
     try {
         const { id } = req.params;
+        const { error } = libroSchema_1.modificarLibroSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield libroService.modificarLibro(Number(id), req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }

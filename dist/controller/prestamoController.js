@@ -35,9 +35,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarPrestamo = exports.modificarPrestamo = exports.obtenerPrestamo = exports.listarPrestamos = exports.insertarPrestamo = void 0;
 const prestamoService = __importStar(require("../services/prestamoService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const prestamoSchema_1 = require("../schema/prestamoSchema");
 const insertarPrestamo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('prestamoController::insertarPrestamo');
     try {
+        const { error } = prestamoSchema_1.insertarPrestamoSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield prestamoService.insertarPrestamo(req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -76,6 +83,12 @@ const modificarPrestamo = (req, res) => __awaiter(void 0, void 0, void 0, functi
     console.log('prestamoController::modificarPrestamo');
     try {
         const { id } = req.params;
+        const { error } = prestamoSchema_1.modificarPrestamoSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield prestamoService.modificarPrestamo(Number(id), req.body);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }

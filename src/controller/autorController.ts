@@ -1,11 +1,18 @@
 import { Request, Response } from "express"
 import * as autorService from "../services/autorService";
 import { ResponseModel } from "../models/ResponseModel";
+import { insertarAutorSchema,modificarAutorSchema } from "../schema/AutorSchema";
 
 export const insertarAutor = async (req: Request, res: Response) => {
     console.log('autorController::insertarAutor');
     try {
         
+        const { error } = insertarAutorSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
         const response = await autorService.insertarAutor(req.body);
         res.status(200).json(ResponseModel.success(null,response));
     } catch (error) {
@@ -42,6 +49,13 @@ export const modificarAutor = async (req: Request, res: Response) => {
     console.log('autorController::modificarAutor');
     try {
         const { id } = req.params;
+        const { error } = modificarAutorSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
+
         const response = await autorService.modificarAutor(Number(id),req.body)
         res.status(200).json(ResponseModel.success(null,response));
     } catch (error) {

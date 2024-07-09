@@ -2,10 +2,19 @@ import { Request, Response } from "express";
 import * as prestamoService from "../services/prestamoService";
 import { ResponseModel } from "../models/ResponseModel";
 import { IPrestamo } from "../models/Prestamo";
+import { insertarPrestamoSchema, modificarPrestamoSchema} from "../schema/prestamoSchema";
 
 export const insertarPrestamo = async (req: Request, res: Response) => {
     console.log('prestamoController::insertarPrestamo');
     try {
+
+        const { error } = insertarPrestamoSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
+
         const response = await prestamoService.insertarPrestamo(req.body);
         res.status(200).json(ResponseModel.success(null, response));
     } catch (error) {
@@ -41,6 +50,14 @@ export const modificarPrestamo = async (req: Request, res: Response) => {
     console.log('prestamoController::modificarPrestamo');
     try {
         const { id } = req.params;
+
+        const { error } = modificarPrestamoSchema.validate(req.body);
+        if(error){
+            console.error(error.message);
+            res.status(400).json(ResponseModel.error(error.message,400));
+            return;
+        }
+
         const response = await prestamoService.modificarPrestamo(Number(id), req.body);
         res.status(200).json(ResponseModel.success(null, response));
     } catch (error) {

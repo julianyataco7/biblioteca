@@ -35,10 +35,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarInfraccion = exports.modificarInfraccion = exports.obtenerInfraccion = exports.listarInfracciones = exports.insertarInfraccion = void 0;
 const infraccionService = __importStar(require("../services/infraccionService"));
 const ResponseModel_1 = require("../models/ResponseModel");
+const infraccionSchema_1 = require("../schema/infraccionSchema");
 const insertarInfraccion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('infraccionController::insertarInfraccion');
     try {
         const infraccion = req.body;
+        const { error } = infraccionSchema_1.insertarInfraccionSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const response = yield infraccionService.insertarInfraccion(infraccion);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
     }
@@ -77,6 +84,12 @@ const modificarInfraccion = (req, res) => __awaiter(void 0, void 0, void 0, func
     console.log('infraccionController::modificarInfraccion');
     try {
         const { id } = req.params;
+        const { error } = infraccionSchema_1.modificarInfraccionSchema.validate(req.body);
+        if (error) {
+            console.error(error.message);
+            res.status(400).json(ResponseModel_1.ResponseModel.error(error.message, 400));
+            return;
+        }
         const infraccion = req.body;
         const response = yield infraccionService.modificarInfraccion(Number(id), infraccion);
         res.status(200).json(ResponseModel_1.ResponseModel.success(null, response));
