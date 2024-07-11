@@ -22,7 +22,6 @@ const usuarioBaseSchema = {
 };
 // Esquema para insertar un usuario
 exports.insertarUsuarioSchema = joi_1.default.object(Object.assign(Object.assign({}, usuarioBaseSchema), { idRol: usuarioBaseSchema.idRol.required(), username: usuarioBaseSchema.username.required(), password: usuarioBaseSchema.password.required(), nombre: usuarioBaseSchema.nombre.required(), apellidoPaterno: usuarioBaseSchema.apellidoPaterno.required(), apellidoMaterno: usuarioBaseSchema.apellidoMaterno.required(), edad: usuarioBaseSchema.edad.required(), direccion: usuarioBaseSchema.direccion.required(), distrito: usuarioBaseSchema.distrito.required(), estado: usuarioBaseSchema.estado.required() }));
-// Esquema para modificar un usuario (permite opcionales)
 exports.modificarUsuarioSchema = joi_1.default.object(Object.assign({}, usuarioBaseSchema));
 exports.foraneoUsuarioSchema = joi_1.default.object(Object.assign(Object.assign({}, usuarioBaseSchema), { password: usuarioBaseSchema.password.min(0).optional() }));
 //# sourceMappingURL=usuarioSchema.js.map

@@ -32,7 +32,7 @@ export const insertarUsuarioSchema = Joi.object({
     estado: usuarioBaseSchema.estado.required(),
 });
 
-// Esquema para modificar un usuario (permite opcionales)
+
 export const modificarUsuarioSchema = Joi.object({
     ...usuarioBaseSchema
 });
